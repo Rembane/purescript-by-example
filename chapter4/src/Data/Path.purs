@@ -6,10 +6,12 @@ module Data.Path (
   , isDirectory
   , size) where
 
-import Data.Maybe
 import Data.Array
+import Data.Maybe
 
-data Path = Directory String [Path] | File String Number
+import Prelude (class Show)
+
+data Path = Directory String (Array Path) | File String Number
 
 instance showPath :: Show Path where
   show = filename
@@ -48,7 +50,7 @@ isDirectory :: Path -> Boolean
 isDirectory (Directory _ _) = true
 isDirectory _ = false
 
-ls :: Path -> [Path]
+ls :: Path -> Array Path
 ls (Directory _ xs) = xs
 ls _ = []
 
